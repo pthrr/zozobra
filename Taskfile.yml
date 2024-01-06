@@ -12,7 +12,7 @@ tasks:
     cmds:
       - qdbus org.kde.KWin /KWin reconfigure
       - dbus-send --session --type=signal --dest=org.kde.KWin /KWin org.kde.KWin.reloadConfig
-      - journalctl -q -g "zozobra:" -f
+      - journalctl -q -g "zozobra" -f
 
   start:
     cmds:
@@ -35,6 +35,7 @@ tasks:
   build:
     cmds:
       - task: clean
+      - npm run build
       - mkdir -p dist/contents/code
       - cp -f data/metadata.json dist/
       - cp -f src/main.js dist/contents/code/main.js
