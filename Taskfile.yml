@@ -1,0 +1,45 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task --list-all
+
+  debug:
+    cmds:
+      - qdbus org.kde.KWin /KWin reconfigure
+      - dbus-send --session --type=signal --dest=org.kde.KWin /KWin org.kde.KWin.reloadConfig
+      - journalctl -q -g "zozobra:" -f
+
+  start:
+    cmds:
+      - task: stop
+      - task: install
+      - dbus-send --session --print-reply=literal --dest=org.kde.KWin /Scripting org.kde.kwin.Scripting.loadScript string:'' string:'zozobra'
+      - qdbus org.kde.KWin /KWin reconfigure
+      - dbus-send --session --type=signal --dest=org.kde.KWin /KWin org.kde.KWin.reloadConfig
+
+  stop:
+    cmds:
+      - dbus-send --session --print-reply=literal --dest=org.kde.KWin /Scripting org.kde.kwin.Scripting.unloadScript string:'zozobra'
+
+  install:
+    cmds:
+      - task: build
+      - kpackagetool5 -u dist/zozobra.kwinscript || kpackagetool5 -i dist/zozobra.kwinscript
+      - kwriteconfig5 --file kwinrc --group Plugins --key zozobraEnabled true
+
+  build:
+    cmds:
+      - task: clean
+      - mkdir -p dist/contents/code
+      - cp -f data/metadata.json dist/
+      - cp -f src/main.js dist/contents/code/main.js
+      - cd dist && zip -r zozobra.kwinscript *
+
+  clean:
+    cmds:
+      - rm -rf dist

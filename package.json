@@ -1,0 +1,29 @@
+{
+  "name": "zozobra",
+  "version": "0.1.0",
+  "description": "A stacking window manager for KWin",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pthrr/zozobra.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "kwin",
+    "stacking-window-manager"
+  ],
+  "bugs": {
+    "url": "https://github.com/pthrr/zozobra/issues"
+  },
+  "homepage": "https://github.com/pthrr/zozobra#readme",
+  "devDependencies": {
+    "esbuild": "^0.17.19",
+    "typescript": "^5.3.3"
+  }
+}

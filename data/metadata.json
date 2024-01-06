@@ -1,0 +1,14 @@
+{
+  "KPlugin": {
+    "Name": "zozobra",
+    "Description": "A stacking window manager for KWin",
+    "Icon": "preferences-system-windows",
+    "Id": "zozobra",
+    "Version": "0.1.0",
+    "License": "GPLv3",
+    "Website": "https://github.com/pthrr/zozobra"
+  },
+  "X-Plasma-API": "javascript",
+  "X-Plasma-MainScript": "code/main.js",
+  "KPackageStructure": "KWin/Script"
+}
